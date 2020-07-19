@@ -1,0 +1,16 @@
+---
+- hosts: rhel-disa-stig-addon
+  tasks:
+    - name: rsyslog remote logging - TLS config
+      lineinfile: 
+        path: /etc/rsyslog.conf
+        line: 'action(type="omfwd" protocol="tcp" Target="10.13.144.121" port="6514" 
+               StreamDriver="gtls" StreamDriverMode="1" StreamDriverAuthMode="x509/name")'
+    - name: rsyslog remote logging - CA certificate config
+      lineinfile:
+        path: /etc/rsyslog.conf
+        line: 'global(DefaultNetstreamDriverCAFile="/etc/pki/tls/cert.pem")'
+    - name: Activate USBGuard service
+      command:
+        cmd:  'systemctl restart usbguard.service'
+      
