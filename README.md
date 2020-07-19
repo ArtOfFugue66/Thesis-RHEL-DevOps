@@ -22,7 +22,7 @@ Files necessary for automating the creation of RHEL8.2 VMs and hardening them ac
 - Build command:  
 <span>`PACKER_LOG=1 PACKER_LOG_PATH=build-log.txt ./packer build --var-file=build-variables.json rhel8.2-disa-stig-compliance.json`</span>
 - Credentials used in the template are stored in _build-variables.json_
-- Results visible in the vSphere Web Client interface:
+- Results visible in the vSphere Web Client interface:  
 ![Web client interface hosts detail](/images/vcenter-hosts-interface-detail-VMs.png)
 ## Ansible
 - _ansible-playbook_ version 2.9.6
