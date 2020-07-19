@@ -32,7 +32,7 @@ Files necessary for automating the creation of RHEL8.2 VMs and hardening them ac
 `ansible-playbook --user admin --become --ask-become-pass rhel8-playbook-stig-addon.yml`
 ## oscap-ssh
 - Installation:  
-    yum -y install openscap-scanner
+`yum -y install openscap-scanner`
 - Requires _bash_, _SSH_, _scp_ and _mktemp_ (see [https://www.systutorials.com/docs/linux/man/8-oscap-ssh/](https://www.systutorials.com/docs/linux/man/8-oscap-ssh/))
 - For _RHEL8.2-DISA-STIG_ VM (change report name on second audit)  
 `oscap-ssh --sudo admin@rhel-disa-stig 22 xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --report ./scap-reports/rhel-disa-stig-report.html /usr/share/xml/scap/ssg/content/ssg-rhel8-ds.xml`
