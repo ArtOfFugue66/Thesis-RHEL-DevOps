@@ -5,7 +5,7 @@ Files necessary for automating the creation of RHEL8.2 VMs and hardening them ac
 ## Virtual lab environment
 ![Env diagram](/images/environment-diagram.png)
 - PC-1, PC-2, PC-3 - hardware platforms
-- ESXi-1, ESXi-2, ESXi-3 - instance of the (normally) bare-metal ESXi hypervisor; Here, they are installed as VMs using VMware Workstation Pro 15
+- ESXi-1, ESXi-2, ESXi-3 - instances of the (normally) bare-metal ESXi hypervisor; Here, they are installed as VMs using VMware Workstation Pro 15
   - ESXi-1 - its sole purpose is to host the VCSA 7.0 VM
   - ESXi-2, ESXi-3 - these will host the VMs created with Packer
 - RHEL8-MAIN - work environment for the system administrator; All processes necessary to reach the final result are run on this virtual machine
