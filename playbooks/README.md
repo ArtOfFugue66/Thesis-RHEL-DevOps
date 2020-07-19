@@ -1,6 +1,6 @@
 ## Ansible playbook files for hardening
  - Used to harden RHEL 8.2 VMs
- - **ansible-playbook --user [unprivileged-username] --become --ask-become-pass [playbook-filename]**
+ - `ansible-playbook --user [unprivileged-username] --become --ask-become-pass [playbook-filename]`
 #### rhel8-playbook-stig.yml
 - Obtained from the _scap-security-guide_ package (**/usr/share/scap-security-guide/**)
 - Contains Ansible configuration tasks to implement **each** hardening item in _[DRAFT] DISA STIG for Red Hat Enterprise Linux 8_
