@@ -1,7 +1,7 @@
 ## auxiliary files
  - Used to simplify some management operations
  - Further comments in the content of each file
-### lab.dns
+#### lab.dns
 - Found in **/etc/dnsmasq.d/**
 - Config file to use _dnsmasq_ as local DNS server
 #### hosts
