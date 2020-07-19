@@ -1,9 +1,9 @@
 # RHEL8.2-DISA-STIG-COMPLIANCE-WORKFLOW
 Files necessary for automating the creation of RHEL8.2 VMs and hardening them according to the guidelines of the profile (at the time of writing) [DRAFT] DISA STIG for Red Hat Enterprise Linux 8.x
 ## Workflow
-> TODO: workflow diagram
+![Workflow diagram](/images/workflow-diagram.png)
 ## Virtual lab environment
-> TODO: environment architecture diagram 
+![Env diagram](/images/environment-diagram.png)
 ## Packer
 - Version 1.5.5
 - _vsphere-iso_ builder; Requires a _vCenter Server Instance_ (VCSA7.0 VM)
@@ -25,4 +25,4 @@ Files necessary for automating the creation of RHEL8.2 VMs and hardening them ac
 - For _RHEL8.2-DISA-STIG-ADDON_ VM (change report name on second audit)  
 `oscap-ssh --sudo admin@rhel-disa-stig-addon 22 xccdf eval --profile xccdf_org.ssgproject.content_profile_stig --report ./scap-reports/rhel-disa-stig-addon-report.html /usr/share/xml/scap/ssg/content/ssg-rhel8-ds.xml`
 ## Results
-> TODO: compliance scores chart
+![Results diagram](/images/compliance-scores-chart.png)
