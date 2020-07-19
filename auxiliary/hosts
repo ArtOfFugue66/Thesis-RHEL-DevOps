@@ -1,0 +1,17 @@
+# RHEL8-MAIN VM; administrative role
+10.13.144.121	main.lab.local	main
+
+# Workstations PC-1, PC-2 and PC-3; physical hosting
+10.13.144.10	pc1.lab.local	pc1
+10.13.144.20	pc2.lab.local	pc2
+10.13.144.30	pc3.lab.local	pc3
+
+# ESXi hypervisor instances, ESXi-1, ESXi-2 and ESXi-3; hosting of RHEL8.2 VMs
+10.13.144.110	esxi1.lab.local	esxi1
+10.13.144.120	esxi2.lab.local	esxi2
+10.13.144.130	esxi3.lab.local	esxi3
+
+# vCenter Server Appliance instance (VCSA 7.0 VM); infrastructure management
+10.13.144.111	vcenter.lab.local vcenter
+
+# RHEL8.2 VMs created with Packer (populated after the packer build command is run)

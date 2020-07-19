@@ -1,0 +1,20 @@
+# Network interface we're working with
+interface=ens160
+listen-address=::1,127.0.0.1,10.13.144.121
+# Respond with "no such domain" to queries with no match 
+bogus-priv
+# For FQDN queries
+domain=lab.local
+# Append domain name to queries if necessary
+# (e.g., `ping vcenter` -> `ping vcenter.lab.local`)
+expand-hosts
+# Specify local DNS domain name
+local=/lab.local/
+# Do not get configurations from "/etc/resolv.conf"
+no-resolv
+no-poll
+# DNS addresses to forward Internet DNS queries to
+server=8.8.8.8
+server=8.8.4.4
+# Always respond with "10.13.144.121" to DNS queries for "main.lab.local"
+address=/main.lab.local/10.13.144.121
