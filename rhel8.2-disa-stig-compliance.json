@@ -1,0 +1,143 @@
+{
+  "builders": [
+    {
+      "type": "vsphere-iso",
+      "name": "rhel8.2-disa-stig-addon",
+
+      "vcenter_server": "vcenter.lab.local",
+      "username": "{{ user `vcenter_user` }}",
+      "password": "{{ user `vcenter_pass` }}",
+
+      "host": "esxi2.lab.local",
+      "datastore": "esxi2-ds",
+
+      "datacenter": "datacenter1",
+      "cluster": "cluster1",
+
+      "vm_name": "RHEL8.2-DISA-STIG-ADDON",
+      "guest_os_type": "rhel8_64Guest",
+
+      "CPUs":             2,
+      "cpu_cores":	  1,
+      "RAM":              2048,
+      "disk_size": 	  20480,
+
+      "iso_urls": [ "<LAB_DIR>/iso/rhel-8.2-x86_64-dvd.iso" ],
+      "iso_checksum": "7fdfed9c7cced4e526a362e64ed06bcdc6ce0394a98625a40e7d05db29bf7b86",
+      "iso_checksum_type": "sha256",
+
+      "boot_wait": "20s",
+      "shutdown_timeout": "1m",
+      "ip_wait_timeout": "20m",
+      "ip_settle_timeout": "1m",
+
+      "insecure_connection": true,
+      "disk_thin_provisioned": true,
+      "disk_controller_type":  "pvscsi",
+      "network": "DSwitch-VM Network",
+      "network_card": "vmxnet3",
+
+      "communicator": "ssh",
+      "ssh_username": "{{ user `ssh_user` }}",
+      "ssh_password": "{{ user `ssh_pass` }}",
+      "ssh_timeout": "5m",
+      "pause_before_connecting": "30s",
+
+      "convert_to_template": false,
+      "http_port_min": 8001,
+      "http_port_max": 8040,
+      "http_directory": "kickstart",
+      "boot_command": [
+      	"<up><wait><tab>",
+	      " inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ssg-rhel8-stig-ks.cfg",
+	"<enter>"
+      ]
+    },
+    {
+      "type": "vsphere-iso",
+      "name": "rhel8.2-disa-stig",
+
+      "vcenter_server": "vcenter.lab.local",
+      "username": "{{ user `vcenter_user` }}",
+      "password": "{{ user `vcenter_pass` }}",
+
+      "host": "esxi3.lab.local",
+      "datastore": "esxi3-ds",
+
+      "datacenter": "datacenter1",
+      "cluster": "cluster1",
+
+      "vm_name": "RHEL8.2-DISA-STIG",
+      "guest_os_type": "rhel8_64Guest",
+
+      "CPUs":             2,
+      "cpu_cores":	  1,
+      "RAM":              2048,
+      "disk_size":        20480,
+
+      "iso_urls": [ "<LAB_DIR>/iso/rhel-8.2-x86_64-dvd.iso" ],
+      "iso_checksum": "7fdfed9c7cced4e526a362e64ed06bcdc6ce0394a98625a40e7d05db29bf7b86",
+      "iso_checksum_type": "sha256",
+
+      "boot_wait": "20s",
+      "shutdown_timeout": "3m",
+      "ip_wait_timeout": "20m",
+      "ip_settle_timeout": "1m",
+
+      "insecure_connection": true,
+      "disk_thin_provisioned": true,
+      "disk_controller_type":  "pvscsi",
+      "network": "DSwitch-VM Network",
+      "network_card": "vmxnet3",
+
+      "communicator": "ssh",
+      "ssh_username": "{{ user `ssh_user` }}",
+      "ssh_password": "{{ user `ssh_pass` }}",
+      "ssh_timeout": "5m",
+      "pause_before_connecting": "30s",
+
+      "http_port_min": 8041,
+      "http_port_max": 8080,
+      "http_directory": "kickstart",
+      "boot_command": [
+      	"<up><wait><tab>",
+	      " inst.ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/generated-rhel8-stig-ks.cfg",
+	"<enter>"
+      ]
+    }
+  ],
+  "provisioners": [
+	{
+	  "type": "shell",
+	  "inline": [
+		"echo \"$(ip a show ens192 | grep -w inet | grep -o -P '[0-9.]{7,15}' | head -1) $(hostname)\" > /tmp/guest-details.txt",
+		"chmod 777 /tmp/guest-details.txt"
+	  ],
+	  "execute_command": " chmod +x {{ .Path }}; echo \"{{ user `sudo_pass` }}\" | sudo -S -E sh '{{ .Path }}'"
+	},
+	{
+	  "type": "file",
+	  "source": "/tmp/guest-details.txt",
+	  "destination": "/home/george/lab/guest-details-{{build_name}}.txt",
+	  "direction": "download"
+	},
+	{
+	  "type": "shell-local",
+	  "inline": [
+	  	"echo \"{{ user `sudo_pass_local` }}\" | sudo -S ./add-vms.sh guest-details-{{build_name}}.txt /etc/ansible/hosts /etc/hosts"
+	  ]
+	},
+	{
+	  "type": "shell",
+	  "inline": [
+		"echo \"nameserver 10.13.144.121\" > /etc/resolv.conf",
+		"chattr +i /etc/resolv.conf",
+
+		"subscription-manager register --username={{ user `rhel_license_user` }} --password={{ user `rhel_license_pass` }} --auto-attach --force",
+
+		"yum -y install openscap-scanner"
+	  ],
+	  "execute_command": " chmod +x {{ .Path }}; echo \"{{ user `sudo_pass` }}\" | sudo -S -E sh '{{ .Path }}'"
+	}
+  ]
+}

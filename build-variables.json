@@ -1,0 +1,12 @@
+{
+	"vcenter_user": "administrator@lab.local",
+	"vcenter_pass": "xxxxx",
+	"sudo_pass_local": "xxxxx",
+
+	"rhel_license_user": "xxxxx",
+	"rhel_license_pass": "xxxxx",
+
+	"ssh_user": "admin",
+	"ssh_pass": "admin123",
+	"sudo_pass": "admin123"
+}
