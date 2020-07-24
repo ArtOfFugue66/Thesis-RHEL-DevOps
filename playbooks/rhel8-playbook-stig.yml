@@ -1,3 +1,4 @@
+{% raw %}
 ---
 ###############################################################################
 #
@@ -3932,7 +3933,7 @@
         - NIST-800-53-MP-7
     - name: create mount_info dictionary variable
       set_fact:
-        mount_info: '{{ mount_info|default({}}})|combine({item.0: item.1}) }}'
+        mount_info: '{{ mount_info|default({})|combine({item.0: item.1}) }}'
       with_together:
         - '{{ device_name.stdout_lines[0].split() | list | lower }}'
         - '{{ device_name.stdout_lines[1].split() | list }}'
@@ -5919,3 +5920,4 @@
         - no_reboot_needed
         - CCE-82831-9
 
+{% endraw %}
