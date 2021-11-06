@@ -1,4 +1,4 @@
-## Ansible playbook files for hardening
+## Ansible playbook files for VM hardening
  - Used to harden RHEL 8.2 VMs
  - `ansible-playbook --user [unprivileged-username] --become --ask-become-pass [playbook-filename]`
 #### rhel8-playbook-stig.yml
