@@ -1,4 +1,4 @@
-# RHEL8.2-DISA-STIG-COMPLIANCE-WORKFLOW
+# Red Hat Enterprise Linux 8.2 - automated VM creation & hardening according to DISA STIG specifications
 Files necessary for automating the creation of RHEL8.2 VMs and hardening them according to the guidelines of the profile named (at the time of writing) _[DRAFT] DISA STIG for Red Hat Enterprise Linux 8.x_
 ## Workflow
 ![Workflow diagram](/images/workflow-diagram.png)
